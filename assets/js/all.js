@@ -16,7 +16,7 @@ var data = [{
   "area": "台北",
   "description": "乘坐以透明強化玻璃為地板的「貓纜之眼」水晶車廂，享受騰雲駕霧遨遊天際之感",
   "group": 99,
-  "price": 240,
+  "price": 2400,
   "rate": 2
 }, {
   "id": 2,
@@ -36,13 +36,13 @@ var displayLocation = document.querySelector('.displayLocation');
 var showdataLen = document.querySelector('.dataLen'); //全域變數
 
 var inputInfo = {
-  ticketName: '',
-  ticketPictureUrl: '',
-  ticketLocation: '',
+  ticketName: "can't be emtpy",
+  ticketPictureUrl: "can't be emtpy",
+  ticketLocation: "can't be emtpy",
   ticketPrice: 0,
   ticketSetNum: 0,
   ticketRank: 0,
-  tickDiscript: ''
+  ticketDiscript: "can't be emtpy"
 };
 var storageData = []; //功能
 
@@ -53,6 +53,7 @@ function getUserInfo() {
         if (item.value === '') {
           alert("\u5957\u7968\u540D\u7A31\u4E0D\u53EF\u7A7A\u767D");
           inputData[index].focus();
+          return;
         }
 
         inputInfo.ticketName = item.value;
@@ -70,6 +71,7 @@ function getUserInfo() {
         if (item.value === '') {
           alert("\u5957\u7968\u50F9\u683C\u4E0D\u53EF\u7A7A\u767D");
           inputData[index].focus();
+          return;
         }
 
         inputInfo.ticketPrice = parseInt(item.value);
@@ -79,6 +81,7 @@ function getUserInfo() {
         if (item.value === '') {
           alert("\u5957\u7968\u7D44\u4E0D\u53EF\u7A7A\u767D");
           inputData[index].focus();
+          return;
         }
 
         inputInfo.ticketSetNum = parseInt(item.value);
@@ -88,13 +91,20 @@ function getUserInfo() {
         if (item.value === '') {
           alert("\u5957\u7968\u661F\u7D1A\u4E0D\u53EF\u7A7A\u767D");
           inputData[index].focus();
+          return;
         }
 
         inputInfo.ticketRank = parseInt(item.value);
         break;
 
       case 6:
-        inputInfo.tickDiscript = item.value;
+        if (item.value === '') {
+          alert("\u5957\u7968\u661F\u7D1A\u4E0D\u53EF\u7A7A\u767D");
+          inputData[index].focus();
+          return;
+        }
+
+        inputInfo.ticketDiscript = item.value;
         break;
     }
   });
@@ -104,8 +114,20 @@ function getUserInfo() {
 
 function compareData() {
   data.forEach(function (item) {
-    if (item.name.indexOf(inputInfo.ticketName) !== -1 || item.imgUrl.indexOf(inputInfo.ticketPictureUrl) !== -1 || item.price === inputInfo.ticketPrice || item.area === inputInfo.ticketLocation || inputInfo.ticketLocation === '全部地區' || item.group === inputInfo.ticketSetNum || item.rate === inputInfo.ticketRank || item.description.indexOf(inputInfo.tickDiscript) !== -1) {
-      storageData.push(item); // console.log(storageData);
+    if (item.name.indexOf(inputInfo.ticketName) !== -1) {
+      storageData.push(item);
+    } else if (item.imgUrl.indexOf(inputInfo.ticketPictureUrl) !== -1) {
+      storageData.push(item);
+    } else if (item.price === inputInfo.ticketPrice) {
+      storageData.push(item);
+    } else if (item.area === inputInfo.ticketLocation || inputInfo.ticketLocation === '全部地區') {
+      storageData.push(item);
+    } else if (item.group === inputInfo.ticketSetNum) {
+      storageData.push(item);
+    } else if (item.rate === inputInfo.ticketRank) {
+      storageData.push(item);
+    } else if (item.description.indexOf(inputInfo.ticketDiscript) !== -1) {
+      storageData.push(item);
     }
   });
   console.log(storageData);
@@ -118,19 +140,26 @@ function showDataLen() {
 function showData() {
   var content = '';
   storageData.forEach(function (item) {
-    content += "<li class=\"card w1-100  w1-lg-45 w1-xl-28 bg-white\">\n    <div class=\"cradHeader h-180\">\n      <img src=\"".concat(item.imgUrl, "\" alt=\"picture\" class=\"border-radius-5\">\n    </div>\n    <div class=\"cardbody\">\n      <div class=\"text-primary fs-24\">\n        <h2>").concat(item.name, "</h2>\n      </div>\n      <p class=\"text-five pt-16\">\n      ").concat(item.description, "\n      </p>\n    </div>\n    <div class=\"cardfooter d-flex align-items-center text-primary\">\n      <p class=\" fs-16 \">\u5269\u4E0B\u6700\u5F8C").concat(item.group, "\u7D44</p>\n      <p class=\"fs-16 ms-30\">NTD</p>\n      <sapn class=\"fs-32\">$").concat(item.price, "</sapn>\n    </div>\n    <div\n      class=\"w-84 h-44 border-right-radius-5 bg-primary text-white position-absoult top--10px d-flex align-items-center justify-content-center\">\n      <span class=\"fs-20\">").concat(item.area, "</span>\n    </div>\n    <div\n      class=\"w-40 h-32 border-right-radius-5 bg-secondary text-white position-absoult top-145px d-flex align-items-center justify-content-center\">\n      <span class=\"fs-16\">").concat(item.rate, "</span>\n    </div>\n  </li>");
+    content += "<li class=\"card w1-100 justify-content-between w1-lg-45 w1-xl-28 bg-white\">\n    <div class=\"form_group\">\n    <div class=\"cradHeader h-180\">\n      <img src=\"".concat(item.imgUrl, "\" alt=\"picture\" class=\"border-radius-5\">\n    </div>\n    <div class=\"cardbody\">\n      <div class=\"text-primary pt-20 fs-24\">\n        <h2>").concat(item.name, "</h2>\n      </div>\n      <p class=\"text-five pt-16 border-top-primary-2 \">\n      ").concat(item.description, "\n      </p>\n    </div>\n    </div>\n    <div class=\"cardfooter d-flex align-items-center  text-primary\">\n      <p class=\" fs-16 \">\u5269\u4E0B\u6700\u5F8C").concat(item.group, "\u7D44</p>\n      <p class=\"fs-16 ms-30\">NTD</p>\n      <sapn class=\"fs-32\">$").concat(item.price, "</sapn>\n    </div>\n    <div\n      class=\"w-84 h-44 border-right-radius-5 bg-primary text-white position-absoult top--10px d-flex align-items-center justify-content-center\">\n      <span class=\"fs-20\">").concat(item.area, "</span>\n    </div>\n    <div\n      class=\"w-40 h-32 border-right-radius-5 bg-secondary text-white position-absoult top-164px d-flex align-items-center justify-content-center\">\n      <span class=\"fs-16\">").concat(item.rate, "</span>\n    </div>\n  </li>");
   });
   displayLocation.innerHTML = content;
 }
 
 function resetInputInfo() {
-  inputInfo.ticketName = '';
-  inputInfo.ticketPictureUrl = '';
-  inputInfo.ticketLocation = '';
+  inputInfo.ticketName = "can't be emtpy";
+  inputInfo.ticketPictureUrl = "can't be emtpy";
+  inputInfo.ticketLocation = "can't be emtpy";
   inputInfo.ticketPrice = 0;
   inputInfo.ticketSetNum = 0;
   inputInfo.ticketRank = 0;
-  inputInfo.tickDiscript = '';
+  inputInfo.ticketDiscript = "can't be emtpy";
+  storageData = [];
+}
+
+function displaySelectionLocation(e) {
+  resetInputInfo();
+  inputInfo.ticketLocation = e.target.value;
+  render();
 }
 
 function render() {
@@ -146,4 +175,5 @@ function work() {
 
 
 search.addEventListener('click', work, false);
+selectLocation.addEventListener('change', displaySelectionLocation, false);
 //# sourceMappingURL=all.js.map
