@@ -1,0 +1,21 @@
+//conatiner
+
+@media (min-width: 375px) {
+    .container,.containerHeader {
+        max-width: 345px;
+        margin: 0 auto;
+    }
+}
+@media (min-width: 768px) {
+    .container,.containerHeader {
+        max-width: 690px;  
+    }
+}
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1110px;  
+    }
+    .containerHeader {
+        max-width: 95%;
+    }
+}

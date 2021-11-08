@@ -1,0 +1,100 @@
+---
+title: Index
+layout: ./app/layout.ejs
+engine: ejs
+current: index
+---
+
+<div class="container">
+  <div class=" card gap-16  mt-30 px-16 py-16 border-radius-5 flex-lg-row justify-content-center ">
+    <div class="log d-flex column ">
+      <img src="./assets/images/undraw_Traveling_re_weve (1).png" alt="logo">
+      <a href="#startID"><img src="./assets/images/Let’s Travel !.png" alt="Let'go trvel"></a>
+    </div>
+    <from_group id="startID" >
+      <div class="border-bottom-primary-2 mb-32">
+        <i class="fas fa-plus-circle fs-24  d-inline-block text-primary"></i>
+        <h2 class="d-inline-block text-primary fs-24 fw-700">新增旅遊套票</h2>
+      </div>
+      
+        <div class="d-flex column gap-16">
+          <div class="from_group "> <label for="ticketNameID" 
+              class=" fa-16 fw-400 text-primary w1-24 d-inline-block">套票名稱</label><input data-input id="ticketNameID" required type="text"
+              class="ms-30 w1-66 d-inline-block ps-8 py-8 bg-sixth border-bottom-secondary-1 " placeholder="請填寫套票名稱">
+          </div>
+          <div class="from_group"> <label for="ticketPictureUrlID" 
+              class=" fa-16 fw-400 text-primary w1-24 d-inline-block">圖片網址</label><input data-input id="ticketPictureUrlID"  type="text"
+              class="ms-30 w1-66 d-inline-block  ps-8 py-8 bg-sixth border-bottom-secondary-1" placeholder="請填寫圖片網址">
+          </div>
+          <div class="from_group"> <label for="ticketLocationID" class=" fa-16 fw-400 text-primary w1-24 d-inline-block">景點地區</label>
+            <select required  name="location" id="ticketLocationID" data-input class="ms-28 w1-65 d-inline-block ps-8 py-8 bg-sixth border-bottom-secondary-1">
+              <option value="請選擇地區" disabled selected >請選擇地區</option>
+              <option value="全部地區">全部地區</option>
+              <option value="台北">台北</option>
+              <option value="台中">台中</option>
+              <option value="高雄">高雄</option>
+            </select>
+  
+          </div>
+          <div class="from_group"><label for="ticketPrictID" class=" fa-16 fw-400 text-primary w1-24 d-inline-block">套票金額</label><input
+              id="ticketPrictID" data-input required type="text" class="ms-30 w1-66 d-inline-block ps-8 py-8 bg-sixth border-bottom-secondary-1"placeholder="請填寫套票金額"></div>
+          <div class="from_group"> <label for="ticketSetNumID"
+              class=" fa-16 fw-400 text-primary w1-24 d-inline-block">套票組數</label><input id="ticketSetNumID" data-input required type="number" min="0" max="100"
+              class="ms-30 w1-66 d-inline-block  ps-8 py-8 bg-sixth border-bottom-secondary-1" placeholder="請填寫套票組數"></div>
+          <div class="from_group"> <label for="ticketRankID"
+              class=" fa-16 fw-400 text-primary w1-24 d-inline-block">套票星級</label><input id="ticketRankID" data-input required type="text"
+              class="ms-30 w1-66 d-inline-block  ps-8 py-8 bg-sixth border-bottom-secondary-1" placeholder="請填寫套票星級"></div>
+          <div class="from_group"> <label for="ticketDisctiptID"
+              class=" fa-16 fw-400 text-primary w1-24 d-inline-block ver vertical-align-top">套票描述</label><textarea name="ticketDisctipt"
+              id="ticketDisctiptID" data-input cols="30" rows="10" class="ms-30 w1-66 d-inline-block  ps-8 py-8 bg-sixth border-bottom-secondary-1"
+              placeholder="請填寫套票描述 限100個字內"></textarea></div>
+          <button 
+            class="search btn text-white w-160 bg-primary fs-20 align-self-end border-none border-radius-5 py-10">新增套票</button>
+        </div>
+     
+      
+
+    </from_group>
+  </div>
+</div>
+<div class="bg-third mt-100">
+  <div class="container">
+    <div class="d-flex ps-16 py-56 ps-lg-95">
+      <select name="location" class='selectLocation'>
+        <option value="搜尋地區" disabled selected hidden>搜尋地區</option>
+        <option value="全部地區">全部地區</option>
+        <option value="台北">台北</option>
+        <option value="台中">台中</option>
+        <option value="高雄">高雄</option>
+      </select>
+      <span class="dataLen text-fiveth ms-30"></span>
+    </div>
+    <ul class="displayLocation d-flex flex-wrap pb-120">
+      <!-- <li class="card w1-100  w1-lg-45 w1-xl-28 bg-white">
+        <div class="cradHeader h-180">
+          <img src="https://i.imgur.com/4UHm8WX.png" alt="picture" class="border-radius-5">
+        </div>
+        <div class="cardbody">
+          <div class="text-primary fs-24">
+            <h2>綠島自由行套裝行程</h2>
+          </div>
+          <p class="text-five pt-16">
+            嚴選超高CP值綠島自由行套裝行程，多種綠島套裝組合，提供台東綠島來回船票、綠島環島機車、綠島民宿住宿，行程加贈『綠島浮潛體驗』以及『綠島生態導覽』，讓你用輕鬆的綠島套裝自由行，也能深度認識綠島在地文化。</p>
+        </div>
+        <div class="cardfooter d-flex align-items-center text-primary">
+          <p class=" fs-16 ">剩下最後 8 組</p>
+          <p class="fs-16 ms-30">NTD</p>
+          <sapn class="fs-32">$1,280</sapn>
+        </div>
+        <div
+          class="w-84 h-44 border-right-radius-5 bg-primary text-white position-absoult top--10px d-flex align-items-center justify-content-center">
+          <span class="fs-20">台北</span>
+        </div>
+        <div
+          class="w-40 h-32 border-right-radius-5 bg-secondary text-white position-absoult top-145px d-flex align-items-center justify-content-center">
+          <span class="fs-16">8.6</span>
+        </div>
+      </li> -->
+    </ul>
+  </div>
+</div>

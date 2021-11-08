@@ -1,0 +1,22 @@
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+body {
+	font-family: "Noto Sans", sans-serif;
+	line-height: 1.5;
+}
+img {
+	width: 100%;
+	vertical-align: middle;
+	object-fit: cover;
+}
+a {
+	text-decoration: none;
+	color: $white;
+	display: inline-block;
+}
+a:hover {
+	color: $fourth;
+}

@@ -1,0 +1,39 @@
+.card{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid $gray300;
+    position: relative;
+    word-wrap: break-word;
+    border-radius: 5px;
+    box-shadow: 3px 3px 3px 0 #00000029;
+}
+.cradHeader{
+    overflow: hidden;
+}
+.cardbody,.cardfooter{
+    padding-left: 16px;
+    padding-right: 16px;
+}
+.btn{
+    &:hover{
+        background: $fourth;
+        cursor: pointer;
+    }
+}
+.pagniation{
+    border-top: 1px solid #000;
+    border-left: 1px solid #000;
+    border-bottom: 1px solid #000;
+    font-size: 16px;
+    a{
+        color:$black;
+        padding:12px 16px;
+        &:hover{
+            background:$black;
+            color: $white;
+        }
+    }
+    @media (min-width:768px){
+        font-size: 18px;
+    }
+}
