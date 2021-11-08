@@ -71,6 +71,9 @@
 .border-bottom-primary-2{
 	border-bottom: 2px solid $primary;
 }
+.border-top-secondary-2{
+	border-top: 2px solid $secondary;
+}
 .border-bottom-secondary-1{
 	border-bottom: 1px solid $secondary;
 	border-top: 1px solid rgba(255, 255, 255, 0);
@@ -161,6 +164,12 @@
 }
 .justify-content-between {
 	justify-content: space-between;
+}
+.justify-content-evenly {
+	justify-content:space-evenly;
+}
+.justify-content-around {
+	justify-content:space-around;
 }
 .justify-self-end {
 	justify-self: end;
@@ -318,6 +327,9 @@
 .mx-auto {
 	margin: 0 auto;
 }
+.mb-auto{
+	margin-bottom: auto;
+}
 .ms-8 {
 	margin-left: 8px;
 }
@@ -427,6 +439,9 @@
 }
 .pt-16{
 	padding-top: 16px;
+}
+.pt-20{
+	padding-top: 20px;
 }
 .pt-30 {
 	padding-top: 30px;
