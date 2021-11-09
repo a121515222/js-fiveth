@@ -36,13 +36,13 @@ var displayLocation = document.querySelector('.displayLocation');
 var showdataLen = document.querySelector('.dataLen'); //全域變數
 
 var inputInfo = {
-  ticketName: "can't be emtpy",
-  ticketPictureUrl: "can't be emtpy",
-  ticketLocation: "can't be emtpy",
+  ticketName: "can' be empty",
+  ticketPictureUrl: "can' be empty",
+  ticketLocation: "can' be empty",
   ticketPrice: 0,
   ticketSetNum: 0,
   ticketRank: 0,
-  ticketDiscript: "can't be emtpy"
+  ticketDiscript: "can' be empty"
 };
 var storageData = []; //功能
 
@@ -99,7 +99,7 @@ function getUserInfo() {
 
       case 6:
         if (item.value === '') {
-          alert("\u5957\u7968\u661F\u7D1A\u4E0D\u53EF\u7A7A\u767D");
+          alert("\u5957\u7968\u63CF\u8FF0\u4E0D\u53EF\u7A7A\u767D");
           inputData[index].focus();
           return;
         }
@@ -146,13 +146,13 @@ function showData() {
 }
 
 function resetInputInfo() {
-  inputInfo.ticketName = "can't be emtpy";
-  inputInfo.ticketPictureUrl = "can't be emtpy";
-  inputInfo.ticketLocation = "can't be emtpy";
+  inputInfo.ticketName = "can' be empty";
+  inputInfo.ticketPictureUrl = "can' be empty";
+  inputInfo.ticketLocation = "can' be empty";
   inputInfo.ticketPrice = 0;
   inputInfo.ticketSetNum = 0;
   inputInfo.ticketRank = 0;
-  inputInfo.ticketDiscript = "can't be emtpy";
+  inputInfo.ticketDiscript = "can' be empty";
   storageData = [];
 }
 
