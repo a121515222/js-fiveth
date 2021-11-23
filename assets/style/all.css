@@ -427,6 +427,14 @@ a:hover {
   gap: 30px;
 }
 
+.h-32 {
+  height: 32px;
+}
+
+.h-38 {
+  height: 38px;
+}
+
 .h-100 {
   height: 100px;
 }

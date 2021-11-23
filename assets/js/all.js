@@ -188,11 +188,18 @@ function pieChart() {
   }); //畫成圓餅圖
 
   var chart = c3.generate({
-    bindto: '#pieChart',
+    bindto: '#donutChart',
     data: {
       // iris data from R
       columns: areaData,
-      type: 'pie'
+      type: 'donut'
+    },
+    size: {
+      height: 250,
+      width: 350
+    },
+    donut: {
+      title: "套票地區比重"
     }
   });
 } //直接執行

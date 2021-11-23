@@ -81,19 +81,23 @@
 </div>
 <div class="bg-third mt-100">
   <div class="container">
-    <div class="d-flex ps-16 py-56 ps-lg-95">
-      <select name="location" class='selectLocation'>
-        <option value="搜尋地區" disabled selected hidden>搜尋地區</option>
-        <option value="全部地區">全部地區</option>
-        <option value="台北">台北</option>
-        <option value="台中">台中</option>
-        <option value="高雄">高雄</option>
-      </select>
-      <span class="dataLen text-fiveth ms-30"></span>
-
+    <div class="d-flex justify-content-between py-20">
+      <div class="d-flex ps-16 py-56 ps-lg-95">
+        <select name="location" class='selectLocation h-32'>
+          <option value="搜尋地區" disabled selected hidden>搜尋地區</option>
+          <option value="全部地區">全部地區</option>
+          <option value="台北">台北</option>
+          <option value="台中">台中</option>
+          <option value="高雄">高雄</option>
+        </select>
+        <span class="dataLen text-fiveth ms-30"></span>
+  
+      </div>
+      <div id="donutChart" class="w1-25"></div>
     </div>
-    <h3>套票地區比例</h3>
-    <div id="pieChart"></div>
+    
+    
+    
     <ul class="displayLocation d-flex flex-wrap justify-content-between  gap-30 mx-auto pb-120">
       <!-- <li class="card w1-100 justify-content-between w1-lg-45 w1-xl-28 bg-white">
         <div class="form_group">
