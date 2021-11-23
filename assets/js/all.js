@@ -1,25 +1,28 @@
 "use strict";
 
 //DOM
-var search = document.querySelector('.search');
+var inputClick = document.querySelector('.inputClick');
 var inputData = document.querySelectorAll('[data-input]');
 var selectLocation = document.querySelector('.selectLocation');
 var displayLocation = document.querySelector('.displayLocation');
-var showdataLen = document.querySelector('.dataLen'); //全域變數
+var showdataLen = document.querySelector('.dataLen');
+var inputfrom = document.querySelector('.inputfrom'); //全域變數
 
 var sideSeedata = [];
-var inputInfo = {
-  ticketName: "can' be empty",
-  ticketPictureUrl: "can' be empty",
-  ticketLocation: "can' be empty",
-  ticketPrice: 0,
-  ticketSetNum: 0,
-  ticketRank: 0,
-  ticketDiscript: "can' be empty"
-};
-var storageData = []; //功能
+var inputinfoData = []; //功能
+//取得資料後push進入inputinfoData
 
 function getUserInfo() {
+  var data = {
+    area: "",
+    description: "",
+    group: 0,
+    id: 0,
+    imgUrl: "",
+    name: "",
+    price: 0,
+    rate: 0
+  };
   var counter = 0;
   inputData.forEach(function (item, index) {
     switch (index) {
@@ -29,17 +32,34 @@ function getUserInfo() {
           inputData[index].focus();
           counter++;
           return;
+        } else {
+          data.name = item.value;
         }
 
-        inputInfo.ticketName = item.value;
         break;
 
       case 1:
-        inputInfo.ticketPictureUrl = item.value;
+        if (item.value === '') {
+          alert("\u5957\u7968\u5716\u7247\u4E0D\u53EF\u7A7A\u767D");
+          inputData[index].focus();
+          counter++;
+          return;
+        } else {
+          data.imgUrl = item.value;
+        }
+
         break;
 
       case 2:
-        inputInfo.ticketLocation = item.value;
+        if (item.value === '') {
+          alert("\u5957\u7968\u5730\u5340\u4E0D\u53EF\u7A7A\u767D");
+          inputData[index].focus();
+          counter++;
+          return;
+        } else {
+          data.area = item.value;
+        }
+
         break;
 
       case 3:
@@ -48,9 +68,10 @@ function getUserInfo() {
           inputData[index].focus();
           counter++;
           return;
+        } else {
+          data.price = Number(item.value);
         }
 
-        inputInfo.ticketPrice = parseInt(item.value);
         break;
 
       case 4:
@@ -59,9 +80,10 @@ function getUserInfo() {
           inputData[index].focus();
           counter++;
           return;
+        } else {
+          data.group = Number(item.value);
         }
 
-        inputInfo.ticketSetNum = parseInt(item.value);
         break;
 
       case 5:
@@ -70,9 +92,10 @@ function getUserInfo() {
           inputData[index].focus();
           counter++;
           return;
+        } else {
+          data.rate = item.value;
         }
 
-        inputInfo.ticketRank = parseInt(item.value);
         break;
 
       case 6:
@@ -81,92 +104,102 @@ function getUserInfo() {
           inputData[index].focus();
           counter++;
           return;
+        } else {
+          data.description = item.value;
         }
 
-        inputInfo.ticketDiscript = item.value;
         break;
     }
   });
 
   if (counter === 0) {
-    reture;
-  } else {
-    render();
+    inputinfoData.push(data);
+    inputinfoData.forEach(function (item) {
+      sideSeedata.push(item);
+    });
+    render(sideSeedata); //重製表單
+
+    inputfrom.reset();
   }
-} //compare Data
-
-
-function compareData() {
-  sideSeedata.forEach(function (item) {
-    if (item.name.indexOf(inputInfo.ticketName) !== -1) {
-      storageData.push(item);
-    } else if (item.imgUrl.indexOf(inputInfo.ticketPictureUrl) !== -1) {
-      storageData.push(item);
-    } else if (item.price === inputInfo.ticketPrice) {
-      storageData.push(item);
-    } else if (item.area === inputInfo.ticketLocation || inputInfo.ticketLocation === '全部地區') {
-      storageData.push(item);
-    } else if (item.group === inputInfo.ticketSetNum) {
-      storageData.push(item);
-    } else if (item.rate === inputInfo.ticketRank) {
-      storageData.push(item);
-    } else if (item.description.indexOf(inputInfo.ticketDiscript) !== -1) {
-      storageData.push(item);
-    }
-  }); //console.log(storageData);
 }
 
-function showDataLen() {
-  showdataLen.textContent = "\u672C\u6B21\u641C\u5C0B\u5171".concat(storageData.length, "\u7B46\u8CC7\u6599");
+function showDataNum(data) {
+  showdataLen.textContent = "\u672C\u6B21\u641C\u5C0B\u5171".concat(data.length, "\u7B46\u8CC7\u6599");
 }
 
-function showData() {
+function showData(data) {
   var content = '';
-  storageData.forEach(function (item) {
+  data.forEach(function (item) {
     content += "<li class=\"card w1-100 justify-content-between w1-lg-45 w1-xl-28 bg-white\">\n    <div class=\"form_group\">\n    <div class=\"cradHeader h-180\">\n      <img src=\"".concat(item.imgUrl, "\" alt=\"picture\" class=\"border-radius-5\">\n    </div>\n    <div class=\"cardbody\">\n      <div class=\"text-primary pt-20 fs-24\">\n        <h2>").concat(item.name, "</h2>\n      </div>\n      <p class=\"text-five pt-16 border-top-primary-2 \">\n      ").concat(item.description, "\n      </p>\n    </div>\n    </div>\n    <div class=\"cardfooter d-flex align-items-center  text-primary\">\n      <p class=\" fs-16 \">\u5269\u4E0B\u6700\u5F8C").concat(item.group, "\u7D44</p>\n      <p class=\"fs-16 ms-30\">NTD</p>\n      <sapn class=\"fs-32\">$").concat(item.price, "</sapn>\n    </div>\n    <div\n      class=\"w-84 h-44 border-right-radius-5 bg-primary text-white position-absoult top--10px d-flex align-items-center justify-content-center\">\n      <span class=\"fs-20\">").concat(item.area, "</span>\n    </div>\n    <div\n      class=\"w-40 h-32 border-right-radius-5 bg-secondary text-white position-absoult top-164px d-flex align-items-center justify-content-center\">\n      <span class=\"fs-16\">").concat(item.rate, "</span>\n    </div>\n  </li>");
   });
   displayLocation.innerHTML = content;
 }
 
-function resetInputInfo() {
-  inputInfo.ticketName = "can' be empty";
-  inputInfo.ticketPictureUrl = "can' be empty";
-  inputInfo.ticketLocation = "can' be empty";
-  inputInfo.ticketPrice = 0;
-  inputInfo.ticketSetNum = 0;
-  inputInfo.ticketRank = 0;
-  inputInfo.ticketDiscript = "can' be empty";
-  storageData = [];
-}
-
 function displaySelectionLocation(e) {
-  resetInputInfo();
-  inputInfo.ticketLocation = e.target.value;
-  render();
+  var showData = [];
+  sideSeedata.forEach(function (item) {
+    if (e.target.value === item.area) {
+      showData.push(item);
+    } else if (e.target.value === '全部地區') {
+      showData.push(item);
+    }
+  });
+  render(showData);
 } //撈資料
 
 
 function getdata() {
   axios.get('https://raw.githubusercontent.com/hexschool/js-training/main/travelApi.json').then(function (response) {
     sideSeedata = response.data.data;
-    getUserInfo(); //data=response.data[0].data;
+    render(sideSeedata); //data=response.data[0].data;
   })["catch"](function (error) {
     console.log(error);
   });
 }
 
-function render() {
-  compareData();
-  showDataLen();
-  showData();
-  resetInputInfo();
+function render(data) {
+  // compareData();
+  showDataNum(data);
+  showData(data);
+  pieChart();
 }
 
-function work() {
-  getdata();
-} //監聽
+function pieChart() {
+  //先取得area所有資料
+  var areaString = [];
+  sideSeedata.forEach(function (item) {
+    if (areaString.indexOf(item.area) === -1) {
+      areaString.push(item.area);
+    }
+  }); //把area轉為屬性
+
+  var areaObj = {};
+  areaString.forEach(function (item) {
+    areaObj[item] = 0;
+  }); //計算資料的area數量並存放到areaObj
+
+  sideSeedata.forEach(function (item) {
+    areaObj[item.area]++;
+  }); //整理成畫圖需要的格式
+
+  var areaData = [];
+  areaString.forEach(function (item) {
+    areaData.push([item, areaObj[item]]);
+  }); //畫成圓餅圖
+
+  var chart = c3.generate({
+    bindto: '#pieChart',
+    data: {
+      // iris data from R
+      columns: areaData,
+      type: 'pie'
+    }
+  });
+} //直接執行
 
 
-search.addEventListener('click', work, false);
+getdata(); //監聽
+
+inputClick.addEventListener('click', getUserInfo, false);
 selectLocation.addEventListener('change', displaySelectionLocation, false);
 //# sourceMappingURL=all.js.map
