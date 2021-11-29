@@ -155,6 +155,10 @@ a:hover {
   white-space: nowrap;
 }
 
+.text-red {
+  color: red;
+}
+
 .text-center {
   text-align: center;
 }
@@ -293,6 +297,10 @@ a:hover {
 
 .d-block {
   display: block;
+}
+
+.fs-8 {
+  font-size: 8px;
 }
 
 .fs-14 {
@@ -949,8 +957,28 @@ a:hover {
   top: 50%;
 }
 
+.bottom--10px {
+  bottom: -10px;
+}
+
+.bottom--15px {
+  bottom: -15px;
+}
+
 .bottom-15px {
   bottom: 15px;
+}
+
+.left-100px {
+  left: 100px;
+}
+
+.left-122px {
+  left: 122px;
+}
+
+.left-125px {
+  left: 125px;
 }
 
 .left-15 {
