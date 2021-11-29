@@ -3,6 +3,9 @@
 .white-space-nowrap {
 	white-space: nowrap;
 }
+.text-red{
+	color: red;
+}
 .text-center {
 	text-align: center;
 }
@@ -118,6 +121,9 @@
 	display: block;
 }
 //font-siez
+.fs-8{
+	font-size: 8px;
+}
 .fs-14 {
 	font-size: 14px;
 }
@@ -202,6 +208,12 @@
 	gap: 30px;
 }
 //height-px
+.h-32{
+	height: 32px;
+}
+.h-38{
+	height: 38px;
+}
 .h-100 {
 	height: 100px;
 }
@@ -603,8 +615,23 @@
 .top-50 {
 	top: 50%;
 }
+.bottom--10px{
+	bottom:-10px ;
+}
+.bottom--15px{
+	bottom:-15px ;
+}
 .bottom-15px{
 	bottom:15px ;
+}
+.left-100px{
+	left: 100px;
+}
+.left-122px{
+	left: 122px;
+}
+.left-125px{
+	left: 125px;
 }
 .left-15 {
 	left: 15%;

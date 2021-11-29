@@ -6,14 +6,17 @@ const selectLocation = document.querySelector('.selectLocation');
 const displayLocation = document.querySelector('.displayLocation');
 const showdataLen = document.querySelector('.dataLen');
 const inputfrom = document.querySelector('.inputfrom');
+const errerMessage = document.querySelectorAll('form p');
+
 //全域變數
 let sideSeedata = [];
 let inputinfoData = [];
 
-
+console.log(inputData[6].value)
 //功能
 //取得資料後push進入inputinfoData
-function getUserInfo() {
+function getUserInfo(e) {
+  e.preventDefault();
   let data = {
     area: "",
     description: "",
@@ -24,104 +27,52 @@ function getUserInfo() {
     price: 0,
     rate: 0,
   }
-  let counter = 0;
-  inputData.forEach(function (item, index) {
+
+  inputData.forEach((item, index) => {
     switch (index) {
       case 0:
-        if (item.value === '') {
-          alert(`套票名稱不可空白`);
-          inputData[index].focus();
-          counter++;
-          return
-        }
-        else {
-          data.name = item.value;
-        }
-
+        data.name = item.value;
         break
       case 1:
-        if (item.value === '') {
-          alert(`套票圖片不可空白`);
-          inputData[index].focus();
-          counter++;
-          return
-        }
-        else {
-          data.imgUrl = item.value;
-        }
-
+        data.imgUrl = item.value;
         break
       case 2:
-        if (item.value === '') {
-          alert(`套票地區不可空白`);
-          inputData[index].focus();
-          counter++;
-          return
-        }
-        else {
-          data.area = item.value;
-        }
-
+        data.area = item.value;
         break
       case 3:
-        if (item.value === '') {
-          alert(`套票價格不可空白`);
-          inputData[index].focus();
-          counter++;
-          return
-        }
-        else {
-          data.price = Number(item.value);
-        }
+        data.price = Number(item.value);
         break
       case 4:
-        if (item.value === '') {
-          alert(`套票組不可空白`)
-          inputData[index].focus();
-          counter++;
-          return
-        }
-        else {
-          data.group = Number(item.value);
-        }
-
+        data.group = Number(item.value);
         break
       case 5:
-        if (item.value === '') {
-          alert(`套票星級不可空白`);
-          inputData[index].focus();
-          counter++;
-          return
-        }
-        else {
-          data.rate = item.value
-        }
+        data.rate = item.value
         break
       case 6:
-        if (item.value === '') {
-          alert(`套票描述不可空白`);
-          inputData[index].focus();
-          counter++;
-          return
-        }
-        else {
-          data.description = item.value;
-        }
+        data.description = item.value;
         break
     }
 
   });
+  //顯示錯誤
+  errorDisplay()
 
-  if (counter === 0) {
+  //如果有錯誤訊息則不渲染畫面
+  if (errorDisplay()) {
+    console.log('error return')
+    return
+  }
+  else {
     inputinfoData.push(data);
     inputinfoData.forEach((item) => {
       sideSeedata.push(item)
     });
-    render(sideSeedata)
+    //渲染畫面
+    render(sideSeedata);
     //重製表單
     inputfrom.reset();
   }
-  
+
 }
 function showDataNum(data) {
   showdataLen.textContent = `本次搜尋共${data.length}筆資料`
@@ -181,7 +132,7 @@ function getdata() {
     .then(function (response) {
       sideSeedata = response.data.data;
 
-      
+
       render(sideSeedata);
 
       //data=response.data[0].data;
@@ -194,44 +145,133 @@ function getdata() {
 
 
 function render(data) {
-  // compareData();
+
   showDataNum(data);
   showData(data);
   pieChart()
 }
-function pieChart(){
+function pieChart() {
   //先取得area所有資料
   let areaString = [];
-  sideSeedata.forEach((item)=>{
-    if(areaString.indexOf(item.area)===-1){
+  sideSeedata.forEach((item) => {
+    if (areaString.indexOf(item.area) === -1) {
       areaString.push(item.area)
     }
   })
   //把area轉為屬性
-  const areaObj ={};
-  areaString.forEach((item)=>{
-    areaObj[item]=0
+  const areaObj = {};
+  areaString.forEach((item) => {
+    areaObj[item] = 0
   })
   //計算資料的area數量並存放到areaObj
-  sideSeedata.forEach((item)=>{
+  sideSeedata.forEach((item) => {
     areaObj[item.area]++
   })
   //整理成畫圖需要的格式
   let areaData = [];
-  areaString.forEach((item)=>{
-    areaData.push([item,areaObj[item]])
+  areaString.forEach((item) => {
+    areaData.push([item, areaObj[item]])
   })
 
   //畫成圓餅圖
   const chart = c3.generate({
-    bindto:'#pieChart',
+    bindto: '#donutChart',
     data: {
-        // iris data from R
-        columns: areaData,
-        type : 'pie',
+      // iris data from R
+      columns: areaData,
+      type: 'donut',
+    },
+    size: {
+      height: 250,
+      width: 350
+    },
+    donut: {
+      title: "套票地區比重"
     }
-});
+  });
 }
+
+//套件
+//VALIDATE.JS
+//限制條件
+function errorDisplay() {
+  const constraints = {
+    ticketName: {
+      presence: { message: "必填欄位" },
+    },
+    ticketPictureUrl: {
+      presence: { message: "必填欄位" },
+      url: {
+        schemes: ["http", "https"],
+        message: "必須是正確的網址"
+      }
+    },
+    location: {
+      presence: { message: "必填欄位" },
+    },
+    ticketPrice: {
+      presence: { message: "必填欄位" },
+      numericality: {
+        onlyInteger: true,
+        greaterThan: 0,
+        notInteger: "請填入整數",
+        notGreaterThan: "請填入大於0的整數"
+      }
+    },
+    ticketNum: {
+      presence: { message: "必填欄位" },
+      numericality: {
+        onlyInteger: true,
+        greaterThan: 0,
+        notInteger: "請填入整數",
+        notGreaterThan: "請填入大於0的整數"
+      }
+    },
+    ticketRank: {
+      presence: { message: "必填欄位" },
+      numericality: {
+        onlyInteger: true,
+        greaterThan: 0,
+        lessThanOrEqualTo: 5,
+        notInteger: "請填入整數",
+        notGreaterThan: "請填入大於0的整數",
+        notLessThanOrEqualTo: "請填入小於等於5的整數"
+      }
+    },
+    ticketDisctipt: {
+      presence: { message: "必填欄位" },
+      length: {
+        maximum: 100,
+        tooLong: "不可超過100字"
+      }
+    }
+  }
+  let errors = validate(inputfrom, constraints);
+
+  console.log(errors);
+
+  //把錯誤訊息顯示出來有錯誤時是顯示空值
+
+  errerMessage.forEach((item, index) => {
+    let classString = item.getAttribute('class');
+    //console.log(classString)
+    let classStringArray = classString.split(' ');
+    if (errors) {
+      //console.log(classStringArray[0])
+      if (Object.keys(errors).indexOf(classStringArray[0]) !== -1) {
+        errerMessage[index].textContent = errors[classStringArray[0]]
+      };
+    }
+    else{
+      errerMessage[index].textContent = '';
+    }
+  });
+  //回傳errors作為要不要reset的判斷依據
+  return errors
+  //console.log(errerMessage);
+}
+
+
 //直接執行
 getdata();
 
